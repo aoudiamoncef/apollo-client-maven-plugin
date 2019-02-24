@@ -1,5 +1,6 @@
 # Apollo GraphQL Client Code Generation Maven Plugin
-[![CircleCI](https://circleci.com/gh/Sparow199/apollo-client-maven-plugin.svg?style=svg)](https://circleci.com/gh/Sparow199/apollo-client-maven-plugin) [ ![Download](https://api.bintray.com/packages/sparow199/maven/apollo-client-maven-plugin/images/download.svg) ](https://bintray.com/sparow199/maven/apollo-client-maven-plugin/_latestVersion)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+[![CircleCI](https://circleci.com/gh/Sparow199/apollo-client-maven-plugin.svg?style=svg)](https://circleci.com/gh/Sparow199/apollo-client-maven-plugin) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSparow199%2Fapollo-client-maven-plugin.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSparow199%2Fapollo-client-maven-plugin?ref=badge_shield)
+[ ![Download](https://api.bintray.com/packages/sparow199/maven/apollo-client-maven-plugin/images/download.svg) ](https://bintray.com/sparow199/maven/apollo-client-maven-plugin/_latestVersion)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 ## Usage
 
 A full usage example can be found in the [test project](https://github.com/sparow199/apollo-client-maven-plugin/tree/master/apollo-client-maven-plugin-tests)
@@ -100,3 +101,6 @@ Properties specified as nullable in the schema will have an java 8 `java.util.op
 * Ryan Gardner => ryangardner
 * Unknown => ddekkers
 * Unknown => mgrossmanexp
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSparow199%2Fapollo-client-maven-plugin.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FSparow199%2Fapollo-client-maven-plugin?ref=badge_large)

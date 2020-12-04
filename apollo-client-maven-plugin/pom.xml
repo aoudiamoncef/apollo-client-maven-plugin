@@ -19,7 +19,7 @@
         <maven-plugin.version>3.6.0</maven-plugin.version>
         <maven-project.version>2.2.1</maven-project.version>
         <apollo.version>2.3.1</apollo.version>
-        <httpclient.version>4.5.12</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <okio.version>2.8.0</okio.version>
     </properties>
 

@@ -7,7 +7,7 @@
 :project-version:    4.0.6
 
 image:https://github.com/{project-owner}/{project-name}/workflows/Build/badge.svg["Build Status", link="https://github.com/{project-owner}/{project-name}/actions"]
-image:https://img.shields.io/maven-central/v/{project-groupId}/{project-artifactId}.svg[Download, link="https://search.maven.org/#search|ga|1|g:{project-groupId} AND a:{project-artifactId}"]
+image:https://img.shields.io/maven-central/v/{project-groupId}/{project-artifactId}.svg[Download, link="https://search.maven.org/#search|ga|1|g:{project-groupId} AND a:{project-artifactId} AND v:{project-version}"]
 image:https://snyk.io/test/github/{project-owner}/{project-name}/badge.svg[Known Vulnerabilities,link=https://snyk.io/test/github/{project-owner}/{project-name}]
 image:https://img.shields.io/badge/License-MIT-yellow.svg[License: MIT,link=https://opensource.org/licenses/MIT]
 
@@ -36,7 +36,7 @@ Maven plugin that calls the https://github.com/apollographql/apollo-android[Apol
    <dependency>
        <groupId>org.jetbrains</groupId>
        <artifactId>annotations</artifactId>
-       <version>22.0.0</version>
+       <version>23.0.0</version>
    </dependency>
 </dependencies>
 ----

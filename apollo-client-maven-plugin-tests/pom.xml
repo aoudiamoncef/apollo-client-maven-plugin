@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.aoudiamoncef</groupId>
         <artifactId>apollo-client-maven-plugin-parent</artifactId>
-        <version>v4.0.5</version>
+        <version>4.0.6-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -77,6 +77,7 @@
             <plugin>
                 <groupId>com.github.aoudiamoncef</groupId>
                 <artifactId>apollo-client-maven-plugin</artifactId>
+                <version>4.0.6-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <goals>

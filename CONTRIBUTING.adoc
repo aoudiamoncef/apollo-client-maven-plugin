@@ -105,9 +105,9 @@ TIP: Force using Linux EOF in your Windows machine repositories:
 
 == WorkFlow
 
-===  GithubFlow
+===  GitlabFlow
 
-See https://guides.github.com/introduction/flow/[GitlabFlow] documentation.
+See https://docs.gitlab.com/ee/topics/gitlab_flow.html[GitlabFlow] documentation.
 
 IMPORTANT: Create a new pull request on Github (only if Github don't find any conflict).
 

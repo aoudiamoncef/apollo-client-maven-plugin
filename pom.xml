@@ -4,7 +4,7 @@
 
     <groupId>com.github.aoudiamoncef</groupId>
     <artifactId>apollo-client-maven-plugin-parent</artifactId>
-    <version>v4.0.5</version>
+    <version>4.0.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>apollo-client-maven-plugin-parent</name>
@@ -28,23 +28,23 @@
         <nexus.url>https://oss.sonatype.org</nexus.url>
         <repository.url>git@github.com:${project.github.repository}.git</repository.url>
 
-        <annotations.version>22.0.0</annotations.version>
-        <ant.version>1.10.11</ant.version>
-        <apollo.version>2.5.10</apollo.version>
-        <assertj-core.version>3.21.0</assertj-core.version>
+        <annotations.version>23.0.0</annotations.version>
+        <ant.version>1.10.12</ant.version>
+        <apollo.version>2.5.12</apollo.version>
+        <assertj-core.version>3.22.0</assertj-core.version>
         <graphql-java-servlet.version>6.1.3</graphql-java-servlet.version>
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
-        <jackson-databind.version>2.13.0</jackson-databind.version>
-        <junit.jupiter.version>5.8.1</junit.jupiter.version>
-        <moshi.version>1.12.0</moshi.version>
-        <okhttp.version>4.9.0</okhttp.version>
+        <jackson-databind.version>2.13.2.1</jackson-databind.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <moshi.version>1.13.0</moshi.version>
+        <okhttp.version>4.9.3</okhttp.version>
         <okio.version>2.9.0</okio.version>
-        <slf4j-simple.version>1.7.30</slf4j-simple.version>
-        <undertow.version>2.2.12.Final</undertow.version>
+        <slf4j-simple.version>1.7.36</slf4j-simple.version>
+        <undertow.version>2.2.16.Final</undertow.version>
 
         <maven-project.version>2.2.1</maven-project.version>
         <maven.version>3.8.1</maven.version>
-        <version.annotations.plugin>3.6.0</version.annotations.plugin>
+        <version.annotations.plugin>3.6.2</version.annotations.plugin>
         <version.dokka.plugin>0.9.17</version.dokka.plugin>
         <version.formatter.plugin>2.11.0</version.formatter.plugin>
         <version.impsort.plugin>1.4.1</version.impsort.plugin>

@@ -6,7 +6,7 @@ on:
       branch:
         description: "Branch to release from"
         required: true
-        default: "main"
+        default: "support/apollo-2"
       version:
         description: "Release version"
         required: true
@@ -34,7 +34,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build
-        run: ./mvnw --no-transfer-progress -B -U --file pom.xml install
+        run: mvn --no-transfer-progress -B -U --file pom.xml install
 
   tag:
     name: Tag
@@ -68,7 +68,7 @@ jobs:
           VERSION=${{ github.event.inputs.version }}
           echo "Releasing $VERSION from $BRANCH branch"
           git checkout $BRANCH
-          ./mvnw --no-transfer-progress -B versions:set versions:commit -DnewVersion=$VERSION
+          mvn --no-transfer-progress -B versions:set versions:commit -DnewVersion=$VERSION
           git config --global user.email "22281426+aoudiamoncef@users.noreply.github.com"
           git config --global user.name "Automated release"
           git commit -a -m "build: releasing version $VERSION"

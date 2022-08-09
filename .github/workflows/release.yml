@@ -43,24 +43,4 @@ jobs:
           export GPG_TTY=$(tty)
           git config user.name "${{ github.event.head_commit.committer.name }}"
           git config user.email "${{ github.event.head_commit.committer.email }}"
-          ./mvnw --no-transfer-progress -B --file pom.xml -Dmaven.site.skip=true -Drelease=true dependency:go-offline deploy
-
-      - name: Setup Java for JReleaser
-        uses: actions/setup-java@v1
-        with:
-          distribution: 'adopt'
-          java-version: 11
-
-      - name: Run JReleaser
-        uses: jreleaser/release-action@v1
-        env:
-          JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.version }}
-          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          JRELEASER_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
-          JRELEASER_GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
-          JRELEASER_DOCKER_DEFAULT_PASSWORD: ${{ secrets.JRELEASER_DOCKER_PASSWORD }}
-          JRELEASER_TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_KEY }}
-          JRELEASER_TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_SECRET }}
-          JRELEASER_TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          JRELEASER_TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          mvn --no-transfer-progress -B --file pom.xml -Dmaven.site.skip=true -Drelease=true dependency:go-offline deploy

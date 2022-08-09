@@ -6,7 +6,7 @@ on:
       - '**'
   pull_request:
     branches:
-      - main
+      - support/apollo-2
 
 jobs:
   build:
@@ -32,4 +32,4 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build
-        run: ./mvnw --no-transfer-progress -B -U --file pom.xml install
+        run: mvn --no-transfer-progress -B -U --file pom.xml install

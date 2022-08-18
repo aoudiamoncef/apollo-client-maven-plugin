@@ -40,7 +40,7 @@
         <okhttp.version>4.9.3</okhttp.version>
         <okio.version>3.0.0</okio.version>
         <slf4j-simple.version>1.7.36</slf4j-simple.version>
-        <undertow.version>2.2.16.Final</undertow.version>
+        <undertow.version>2.2.19.Final</undertow.version>
 
         <maven-project.version>2.2.1</maven-project.version>
         <maven.version>3.8.1</maven.version>

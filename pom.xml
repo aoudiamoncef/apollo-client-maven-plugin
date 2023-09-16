@@ -36,11 +36,12 @@
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
         <jackson-databind.version>2.14.2</jackson-databind.version>
         <junit.jupiter.version>5.9.2</junit.jupiter.version>
+        <kotlinx-coroutines-test.version>1.7.2</kotlinx-coroutines-test.version>
         <moshi.version>1.14.0</moshi.version>
         <okhttp.version>4.10.0</okhttp.version>
         <okio.version>3.3.0</okio.version>
         <slf4j-simple.version>2.0.7</slf4j-simple.version>
-        <undertow.version>2.3.5.Final</undertow.version>
+        <undertow.version>2.2.26.Final</undertow.version>
 
         <maven-project.version>2.2.1</maven-project.version>
         <maven.version>3.8.1</maven.version>

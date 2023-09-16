@@ -15,12 +15,13 @@ import graphql.servlet.SimpleGraphQLHttpServlet
 import io.undertow.Undertow
 import io.undertow.servlet.Servlets
 import io.undertow.servlet.util.ImmediateInstanceFactory
-import jakarta.servlet.Servlet
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS
 import java.net.InetSocketAddress
+import javax.servlet.Servlet
 
 @TestInstance(PER_CLASS)
 class ApolloClientMavenPluginTest {
@@ -63,18 +64,11 @@ class ApolloClientMavenPluginTest {
 
         val longCustomScalarTypeAdapter = object : Adapter<Long> {
             override fun fromJson(reader: JsonReader, customScalarAdapters: CustomScalarAdapters): Long {
-                return customScalarAdapters.responseAdapterFor<Long>(com.lahzouz.apollo.graphql.client.type.Long.type).fromJson(
-                    reader,
-                    customScalarAdapters,
-                )
+                return reader.nextLong() // Assuming the Long value is directly parseable from JSON
             }
 
             override fun toJson(writer: JsonWriter, customScalarAdapters: CustomScalarAdapters, value: Long) {
-                return customScalarAdapters.responseAdapterFor<Long>(com.lahzouz.apollo.graphql.client.type.Long.type).toJson(
-                    writer,
-                    customScalarAdapters,
-                    value,
-                )
+                writer.value(value) // Write the Long value to JSON
             }
         }
 
@@ -92,14 +86,14 @@ class ApolloClientMavenPluginTest {
 
     @Test
     @DisplayName("generated book query returns data")
-    suspend fun bookQueryTest() {
+    fun bookQueryTest(): Unit = runBlocking {
         val response = client.query(GetBooksQuery()).execute()
         assertThat(response.data?.books).isNotEmpty.hasSize(4)
     }
 
     @Test
     @DisplayName("generated author query returns data")
-    suspend fun authorQueryTest() {
+    fun authorQueryTest(): Unit = runBlocking {
         val response = client.query(GetAuthorsQuery()).execute()
         assertThat(response.data?.authors).isNotEmpty.hasSize(2)
     }

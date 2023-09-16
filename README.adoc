@@ -207,15 +207,28 @@ Implementation of a custom adapter for `java.time.LocalDate`:
 
 [source,java]
 ----
+import com.apollographql.apollo3.api.Adapter;
+import com.apollographql.apollo3.api.CustomScalarAdapters;
+import com.apollographql.apollo3.api.json.JsonReader;
+import com.apollographql.apollo3.api.json.JsonWriter;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class LocalDateGraphQLAdapter implements Adapter<LocalDate> {
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_DATE;
+
     @Override
     public LocalDate fromJson(@NotNull final JsonReader reader, @NotNull final CustomScalarAdapters customScalarAdapters) throws IOException {
-        return LocalDate.parse(reader.nextString());
+        String dateString = reader.nextString();
+        return LocalDate.parse(dateString, dateFormatter);
     }
 
     @Override
     public void toJson(@NotNull final JsonWriter writer, @NotNull final CustomScalarAdapters customScalarAdapters, final LocalDate value) throws IOException {
-        writer.value(value.toString());
+        writer.value(value.format(dateFormatter));
     }
 }
 ----

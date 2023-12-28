@@ -83,6 +83,13 @@ class CompilerParams {
     internal val sealedClassesForEnumsMatching: List<String> = emptyList()
 
     /**
+     * The format in which the operation manifest will be generated.
+     *
+     * Default value: "operationOutput"
+     */
+    internal val operationManifestFormat: String = MANIFEST_OPERATION_OUTPUT
+
+    /**
      * Whether or not to generate Apollo metadata. Apollo metadata is used for multi-module support. Set this to true if you want other
      * modules to be able to re-use fragments and types from this module.
      *

@@ -134,6 +134,7 @@ All plugin configuration properties and their defaults:
                     </rootFolders>
                     <scalarsMapping></scalarsMapping>
                     <operationIdGeneratorClass></operationIdGeneratorClass>
+                    <operationManifestFormat>persistedQueryManifest</operationManifestFormat>
                     <schemaPackageName>com.lahzouz.apollo.graphql.client</schemaPackageName>
                     <packageName>com.lahzouz.apollo.graphql.client</packageName>
                     <codegenModels>OPERATION</codegenModels>

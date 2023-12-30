@@ -170,6 +170,8 @@ class GraphQLClientMojo : AbstractMojo() {
                     generateAsInternal = compilerParams.generateAsInternal,
                     generateFilterNotNull = compilerParams.generateFilterNotNull,
                     generateFragmentImplementations = compilerParams.generateFragmentImplementations,
+                    operationManifestFormat = compilerParams.operationManifestFormat,
+                    operationManifestFile = compilationUnit.operationOutputFile,
                     generateResponseFields = compilerParams.generateResponseFields,
                     generateQueryDocument = compilerParams.generateQueryDocument,
                     generateSchema = compilerParams.generateSchema,

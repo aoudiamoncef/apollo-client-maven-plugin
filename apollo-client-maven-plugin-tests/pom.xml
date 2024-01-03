@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.aoudiamoncef</groupId>
         <artifactId>apollo-client-maven-plugin-parent</artifactId>
-        <version>7.1.0</version>
+        <version>7.1.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -105,7 +105,7 @@
             <plugin>
                 <groupId>com.github.aoudiamoncef</groupId>
                 <artifactId>apollo-client-maven-plugin</artifactId>
-                <version>7.1.0</version>
+                <version>7.1.1-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <goals>
@@ -150,6 +150,7 @@
                                                 </Long>
                                             </scalarsMapping>
                                             <operationIdGeneratorClass></operationIdGeneratorClass>
+                                            <operationManifestFormat>persistedQueryManifest</operationManifestFormat>
                                             <schemaPackageName>com.lahzouz.apollo.graphql.client</schemaPackageName>
                                             <packageName>com.lahzouz.apollo.graphql.client</packageName>
                                             <codegenModels>OPERATION</codegenModels>

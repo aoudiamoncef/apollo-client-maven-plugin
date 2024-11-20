@@ -85,9 +85,14 @@ class CompilerParams {
     /**
      * The format in which the operation manifest will be generated.
      *
-     * Default value: "operationOutput"
+     * Acceptable values:
+     * - `none`: No manifest will be generated
+     * - `operationOutput`: 'operationOutput' manifest format
+     * - `persistedQueryManifest`: Apollo's persistent query manifest format
+     *
+     * Default value: "none"
      */
-    internal val operationManifestFormat: String = MANIFEST_OPERATION_OUTPUT
+    internal val operationManifestFormat: String = MANIFEST_NONE
 
     /**
      * Whether or not to generate Apollo metadata. Apollo metadata is used for multi-module support. Set this to true if you want other

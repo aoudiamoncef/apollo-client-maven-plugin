@@ -150,6 +150,7 @@
                                                 </Long>
                                             </scalarsMapping>
                                             <operationIdGeneratorClass></operationIdGeneratorClass>
+                                            <operationManifestFormat>persistedQueryManifest</operationManifestFormat>
                                             <schemaPackageName>com.lahzouz.apollo.graphql.client</schemaPackageName>
                                             <packageName>com.lahzouz.apollo.graphql.client</packageName>
                                             <codegenModels>OPERATION</codegenModels>

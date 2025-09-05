@@ -6,7 +6,6 @@ import java.io.File
  * A [Service] represents a GraphQL endpoint and its associated schema.
  */
 class Service {
-
     /**
      * Whether to use current service
      */
@@ -59,5 +58,6 @@ class Service {
     internal val excludes: Set<String> = emptySet()
 
     fun isIntrospectionInitialised() = ::introspection.isInitialized
+
     fun isCompilationUnitInitialised() = ::compilationUnit.isInitialized
 }

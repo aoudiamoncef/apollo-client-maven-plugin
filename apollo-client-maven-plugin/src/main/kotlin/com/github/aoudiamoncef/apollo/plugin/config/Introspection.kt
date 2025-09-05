@@ -6,7 +6,6 @@ import java.io.File
  * [Introspection] represents a GraphQL endpoint and its introspection query used to retrieve a schema.
  */
 class Introspection {
-
     /**
      * Whether to use introspection
      */

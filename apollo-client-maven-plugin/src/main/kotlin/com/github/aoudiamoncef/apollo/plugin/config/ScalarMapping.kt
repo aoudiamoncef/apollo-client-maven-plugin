@@ -4,7 +4,6 @@ package com.github.aoudiamoncef.apollo.plugin.config
  * ScalarMapping contains all the parameters needed to generate scalar mappings with the apollo compiler.
  */
 class ScalarMapping {
-
     /**
      * The fully qualified Java or Kotlin name of the type the scalar is mapped to.
      *

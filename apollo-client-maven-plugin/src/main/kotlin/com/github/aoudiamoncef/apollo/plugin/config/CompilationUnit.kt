@@ -32,11 +32,6 @@ class CompilationUnit {
     internal var outputDirectory: File? = null
 
     /**
-     * The directory where to write the generated models test code
-     */
-    internal var testDirectory: File? = null
-
-    /**
      * The directory where to write the generated models debug code
      */
     internal var debugDirectory: File? = null

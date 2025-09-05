@@ -1,6 +1,5 @@
 package com.github.aoudiamoncef.apollo.plugin.util
 
-import com.apollographql.apollo3.compiler.fromJson
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.aoudiamoncef.apollo.plugin.util.ConfigUtils.isIntrospection
@@ -17,7 +16,6 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 object SchemaDownloader {
-
     fun newOkHttpClient(
         connectTimeoutSeconds: Long,
         readTimeoutSeconds: Long,
@@ -25,11 +23,12 @@ object SchemaDownloader {
         useSelfSignedCertificat: Boolean,
         useGzip: Boolean,
     ): OkHttpClient {
-        val okhttpClientBuilder = if (useSelfSignedCertificat) {
-            UnsafeOkHttpClient.getUnsafeOkHttpClient()
-        } else {
-            OkHttpClient.Builder()
-        }
+        val okhttpClientBuilder =
+            if (useSelfSignedCertificat) {
+                UnsafeOkHttpClient.getUnsafeOkHttpClient()
+            } else {
+                OkHttpClient.Builder()
+            }
 
         if (useGzip) {
             okhttpClientBuilder.addInterceptor(GzipRequestInterceptor())
@@ -50,7 +49,8 @@ object SchemaDownloader {
         okHttpClient: OkHttpClient,
     ): Response {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        JsonWriter.of(byteArrayOutputStream.sink().buffer())
+        JsonWriter
+            .of(byteArrayOutputStream.sink().buffer())
             .apply {
                 beginObject()
                 name("query")
@@ -64,18 +64,19 @@ object SchemaDownloader {
             }
 
         val body = byteArrayOutputStream.toByteArray().toRequestBody("application/json".toMediaTypeOrNull())
-        val request = Request.Builder()
-            .post(body)
-            .apply {
-                addHeader("User-Agent", "ApolloMavenPlugin")
-                headers.entries.forEach {
-                    addHeader(it.key, it.value)
-                }
-            }
-            .header("apollographql-client-name", "apollo-maven-plugin")
-            .header("apollographql-client-version", com.apollographql.apollo3.compiler.APOLLO_VERSION)
-            .url(url)
-            .build()
+        val request =
+            Request
+                .Builder()
+                .post(body)
+                .apply {
+                    addHeader("User-Agent", "ApolloMavenPlugin")
+                    headers.entries.forEach {
+                        addHeader(it.key, it.value)
+                    }
+                }.header("apollographql-client-name", "apollo-maven-plugin")
+                .header("apollographql-client-version", com.apollographql.apollo.compiler.APOLLO_VERSION)
+                .url(url)
+                .build()
 
         val response = okHttpClient.newCall(request).execute()
 
@@ -108,38 +109,41 @@ object SchemaDownloader {
     ) {
         val query =
             """
-    query DownloadSchema(${'$'}graphID: ID!, ${'$'}variant: String!) {
-      service(id: ${'$'}graphID) {
-        variant(name: ${'$'}variant) {
-          activeSchemaPublish {
-            schema {
-              document
+            query DownloadSchema(${'$'}graphID: ID!, ${'$'}variant: String!) {
+              service(id: ${'$'}graphID) {
+                variant(name: ${'$'}variant) {
+                  activeSchemaPublish {
+                    schema {
+                      document
+                    }
+                  }
+                }
+              }
             }
-          }
-        }
-      }
-    }
             """.trimIndent()
         val variables =
             """
-      {
-        "graphID": "$graph",
-        "variant": "$variant"
-      }
+            {
+              "graphID": "$graph",
+              "variant": "$variant"
+            }
             """.trimIndent()
 
-        val response = executeQuery(query, variables, "https://graphql.api.apollographql.com/api/graphql", mapOf("x-api-key" to key), okHttpClient)
+        val response =
+            executeQuery(query, variables, "https://graphql.api.apollographql.com/api/graphql", mapOf("x-api-key" to key), okHttpClient)
 
         val responseString = response.body.use { it?.string() }
 
-        val document = responseString
-            ?.fromJson<Map<String, *>>()
-            ?.get("data").cast<Map<String, *>>()
-            ?.get("service").cast<Map<String, *>>()
-            ?.get("variant").cast<Map<String, *>>()
-            ?.get("activeSchemaPublish").cast<Map<String, *>>()
-            ?.get("schema").cast<Map<String, *>>()
-            ?.get("document").cast<String>()
+        val jsonNode = mapper.readTree(responseString)
+        val document =
+            jsonNode
+                .path("data")
+                .path("service")
+                .path("variant")
+                .path("activeSchemaPublish")
+                .path("schema")
+                .path("document")
+                .asText(null)
 
         check(document != null) {
             "Cannot retrieve document from $responseString\nCheck graph id and variant"
@@ -150,7 +154,11 @@ object SchemaDownloader {
 
     private inline fun <reified T> Any?.cast() = this as? T
 
-    private fun writeResponse(schema: File, response: Response, prettyPrint: Boolean) {
+    private fun writeResponse(
+        schema: File,
+        response: Response,
+        prettyPrint: Boolean,
+    ) {
         schema.parentFile?.mkdirs()
         response.body.use { responseBody ->
             if (schema.isIntrospection()) {
@@ -161,7 +169,11 @@ object SchemaDownloader {
         }
     }
 
-    private fun writeResponse(schema: File, document: String?, prettyPrint: Boolean) {
+    private fun writeResponse(
+        schema: File,
+        document: String?,
+        prettyPrint: Boolean,
+    ) {
         schema.parentFile?.mkdirs()
         if (schema.isIntrospection()) {
             schema.writeText(pretify(document, prettyPrint))
@@ -170,7 +182,10 @@ object SchemaDownloader {
         }
     }
 
-    private fun pretify(document: String?, prettyPrint: Boolean): String {
+    private fun pretify(
+        document: String?,
+        prettyPrint: Boolean,
+    ): String {
         if (document.isNullOrBlank()) {
             throw IllegalArgumentException("document: is null or blank")
         }
@@ -186,72 +201,66 @@ object SchemaDownloader {
 
     private val introspectionQuery =
         """
-    query IntrospectionQuery {
-      __schema {
-        queryType { name }
-        mutationType { name }
-        subscriptionType { name }
-        types {
-          ...FullType
-        }
-        directives {
-          name
-          description
-          locations
-          args {
-            ...InputValue
+        query IntrospectionQuery {
+          __schema {
+            queryType { name }
+            mutationType { name }
+            subscriptionType { name }
+            types {
+              ...FullType
+            }
+            directives {
+              name
+              description
+              locations
+              args {
+                ...InputValue
+              }
+            }
           }
         }
-      }
-    }
 
-    fragment FullType on __Type {
-      kind
-      name
-      description
-      fields(includeDeprecated: true) {
-        name
-        description
-        args {
-          ...InputValue
+        fragment FullType on __Type {
+          kind
+          name
+          description
+          fields(includeDeprecated: true) {
+            name
+            description
+            args {
+              ...InputValue
+            }
+            type {
+              ...TypeRef
+            }
+            isDeprecated
+            deprecationReason
+          }
+          inputFields {
+            ...InputValue
+          }
+          interfaces {
+            ...TypeRef
+          }
+          enumValues(includeDeprecated: true) {
+            name
+            description
+            isDeprecated
+            deprecationReason
+          }
+          possibleTypes {
+            ...TypeRef
+          }
         }
-        type {
-          ...TypeRef
+
+        fragment InputValue on __InputValue {
+          name
+          description
+          type { ...TypeRef }
+          defaultValue
         }
-        isDeprecated
-        deprecationReason
-      }
-      inputFields {
-        ...InputValue
-      }
-      interfaces {
-        ...TypeRef
-      }
-      enumValues(includeDeprecated: true) {
-        name
-        description
-        isDeprecated
-        deprecationReason
-      }
-      possibleTypes {
-        ...TypeRef
-      }
-    }
 
-    fragment InputValue on __InputValue {
-      name
-      description
-      type { ...TypeRef }
-      defaultValue
-    }
-
-    fragment TypeRef on __Type {
-      kind
-      name
-      ofType {
-        kind
-        name
-        ofType {
+        fragment TypeRef on __Type {
           kind
           name
           ofType {
@@ -269,13 +278,19 @@ object SchemaDownloader {
                   ofType {
                     kind
                     name
+                    ofType {
+                      kind
+                      name
+                      ofType {
+                        kind
+                        name
+                      }
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
-    }
         """.trimIndent()
 }

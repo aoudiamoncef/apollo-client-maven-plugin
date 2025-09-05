@@ -1,11 +1,6 @@
 package com.github.aoudiamoncef.apollo.plugin.util
 
-import com.apollographql.apollo3.annotations.ApolloExperimental
-import com.apollographql.apollo3.ast.toUtf8
-import com.apollographql.apollo3.compiler.introspection.toGQLDocument
-import com.apollographql.apollo3.compiler.introspection.toIntrospectionSchema
-import com.apollographql.apollo3.compiler.introspection.toSchema
-import com.apollographql.apollo3.compiler.toJson
+import com.apollographql.apollo.compiler.TargetLanguage
 import com.github.aoudiamoncef.apollo.plugin.config.CompilationUnit
 import com.github.aoudiamoncef.apollo.plugin.config.CompilerParams
 import com.github.aoudiamoncef.apollo.plugin.config.Introspection
@@ -18,8 +13,11 @@ import java.nio.file.PathMatcher
 import java.nio.file.Paths
 
 object ConfigUtils {
-
-    internal fun checkService(project: MavenProject, serviceName: String, service: Service): Service {
+    internal fun checkService(
+        project: MavenProject,
+        serviceName: String,
+        service: Service,
+    ): Service {
         service.introspection = if (service.isIntrospectionInitialised()) service.introspection else Introspection()
         service.compilationUnit =
             if (service.isCompilationUnitInitialised()) service.compilationUnit else CompilationUnit()
@@ -65,9 +63,6 @@ object ConfigUtils {
         if (compilationUnit.debugDirectory == null) {
             compilationUnit.debugDirectory = BuildDirLayout.debug(project, compilationUnit)
         }
-        if (compilationUnit.testDirectory == null) {
-            compilationUnit.testDirectory = BuildDirLayout.test(project, compilationUnit)
-        }
 
         return compilationUnit
     }
@@ -106,6 +101,7 @@ object ConfigUtils {
         project: MavenProject,
         service: Service,
         compilerParams: CompilerParams,
+        log: org.apache.maven.plugin.logging.Log,
     ): CompilerParams {
         compilerParams.rootFolders =
             if (compilerParams.rootFolders.isNotEmpty()) compilerParams.rootFolders else listOf(service.sourceFolder as File)
@@ -130,24 +126,52 @@ object ConfigUtils {
             compilerParams.schemaPackageName = "${project.groupId}.apollo.client.${service.compilationUnit.name}.schema"
         }
 
+        if (compilerParams.targetLanguage == TargetLanguage.JAVA) {
+            if (compilerParams.generateAsInternal != null) {
+                log.warn("generateAsInternal is not used in Java")
+            }
+            if (compilerParams.generateFilterNotNull != null) {
+                log.warn("generateFilterNotNull is not used in Java")
+            }
+            if (compilerParams.sealedClassesForEnumsMatching != null) {
+                log.warn("sealedClassesForEnumsMatching is not used in Java")
+            }
+        } else {
+            if (compilerParams.nullableFieldStyle != null) {
+                log.warn("nullableFieldStyle is not used in Kotlin")
+            }
+            if (compilerParams.generateModelBuilders != null) {
+                log.warn("generateModelBuilders is not used in Kotlin")
+            }
+        }
+
         return compilerParams
     }
 
-    internal fun findFilesByMatcher(files: Set<File>, matcher: PathMatcher): Set<File> {
-        return files.asSequence()
+    internal fun findFilesByMatcher(
+        files: Set<File>,
+        matcher: PathMatcher,
+    ): Set<File> =
+        files
+            .asSequence()
             .filter { file -> matcher.matches(file.toPath()) }
             .toSet()
-    }
 
-    internal fun getSourceSetFiles(sourceFolder: File, includes: Set<String>, excludes: Set<String>): Set<File> {
-        val scanner = DirectoryScanner().apply {
-            basedir = sourceFolder
-            isCaseSensitive = false
-            setIncludes(includes.toTypedArray())
-            addExcludes(excludes.toTypedArray())
-            scan()
-        }
-        return scanner.includedFiles.asSequence()
+    internal fun getSourceSetFiles(
+        sourceFolder: File,
+        includes: Set<String>,
+        excludes: Set<String>,
+    ): Set<File> {
+        val scanner =
+            DirectoryScanner().apply {
+                basedir = sourceFolder
+                isCaseSensitive = false
+                setIncludes(includes.toTypedArray())
+                addExcludes(excludes.toTypedArray())
+                scan()
+            }
+        return scanner.includedFiles
+            .asSequence()
             .map { path -> Paths.get(sourceFolder.path, path).toFile() }
             .filter { file -> file.exists() }
             .toSet()
@@ -183,11 +207,13 @@ object ConfigUtils {
                 }
             }
         } else {
-            val candidates = directories.flatMap { srcDir ->
-                srcDir.walkTopDown()
-                    .filter { it.name == "schema.json" || it.name == "schema.sdl" || it.name == "schema.graphqls" }
-                    .toList()
-            }
+            val candidates =
+                directories.flatMap { srcDir ->
+                    srcDir
+                        .walkTopDown()
+                        .filter { it.name == "schema.json" || it.name == "schema.sdl" || it.name == "schema.graphqls" }
+                        .toList()
+                }
 
             require(candidates.size <= 1) {
                 throw MojoExecutionException(
@@ -204,13 +230,4 @@ object ConfigUtils {
     }
 
     fun File.isIntrospection() = extension == "json"
-
-    @OptIn(ApolloExperimental::class)
-    fun convert(from: File, to: File, prettyPrint: Boolean) {
-        if (from.isIntrospection()) {
-            from.toIntrospectionSchema().toGQLDocument().toUtf8(to)
-        } else {
-            from.toSchema().toIntrospectionSchema().toJson(to)
-        }
-    }
 }

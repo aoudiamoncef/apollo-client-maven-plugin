@@ -8,7 +8,6 @@ import java.nio.file.Paths
 import kotlin.io.path.exists
 
 class OperationManifestTest {
-
     @Test
     @DisplayName("Checks that operationManifest.json file has been generated and it's not empty")
     fun operationManifestTest() {

@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.aoudiamoncef</groupId>
         <artifactId>apollo-client-maven-plugin-parent</artifactId>
-        <version>7.2.0-SNAPSHOT</version>
+        <version>8.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -22,12 +22,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.apollographql.apollo3</groupId>
+            <groupId>com.apollographql.apollo</groupId>
             <artifactId>apollo-api-jvm</artifactId>
             <version>${apollo.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.apollographql.apollo3</groupId>
+            <groupId>com.apollographql.apollo</groupId>
             <artifactId>apollo-runtime-jvm</artifactId>
             <version>${apollo.version}</version>
         </dependency>
@@ -105,7 +105,7 @@
             <plugin>
                 <groupId>com.github.aoudiamoncef</groupId>
                 <artifactId>apollo-client-maven-plugin</artifactId>
-                <version>7.2.0-SNAPSHOT</version>
+                <version>8.0.0-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <goals>
@@ -132,9 +132,6 @@
                                         <outputDirectory>
                                             ${project.build.directory}/generated-sources/graphql-client/books/
                                         </outputDirectory>
-                                        <testDirectory>
-                                            ${project.build.directory}/generated-sources/graphql-client/books/test/
-                                        </testDirectory>
                                         <debugDirectory>
                                             ${project.build.directory}/generated-sources/graphql-client/books/debug/
                                         </debugDirectory>
@@ -159,13 +156,10 @@
                                             <generateAsInternal>false</generateAsInternal>
                                             <generateFilterNotNull>false</generateFilterNotNull>
                                             <generateFragmentImplementations>false</generateFragmentImplementations>
-                                            <generateResponseFields>false</generateResponseFields>
                                             <generateQueryDocument>true</generateQueryDocument>
                                             <generateSchema>false</generateSchema>
-                                            <generateTestBuilders>false</generateTestBuilders>
                                             <generateOptionalOperationVariables>false
                                             </generateOptionalOperationVariables>
-                                            <nullableFieldStyle>NONE</nullableFieldStyle>
                                             <useSemanticNaming>true</useSemanticNaming>
                                             <targetLanguage>KOTLIN_1_5</targetLanguage>
                                             <sealedClassesForEnumsMatching></sealedClassesForEnumsMatching>

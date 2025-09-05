@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.aoudiamoncef</groupId>
         <artifactId>apollo-client-maven-plugin-parent</artifactId>
-        <version>7.2.0-SNAPSHOT</version>
+        <version>8.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -35,17 +35,17 @@
             <artifactId>maven-project</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.apollographql.apollo3</groupId>
+            <groupId>com.apollographql.apollo</groupId>
             <artifactId>apollo-compiler</artifactId>
             <version>${apollo.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.apollographql.apollo3</groupId>
+            <groupId>com.apollographql.apollo</groupId>
             <artifactId>apollo-api-jvm</artifactId>
             <version>${apollo.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.apollographql.apollo3</groupId>
+            <groupId>com.apollographql.apollo</groupId>
             <artifactId>apollo-ast</artifactId>
             <version>${apollo.version}</version>
         </dependency>

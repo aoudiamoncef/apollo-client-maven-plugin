@@ -12,21 +12,26 @@ class UnsafeOkHttpClient {
         fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
             try {
                 // Create a trust manager that does not validate certificate chains
-                val trustAllCerts = arrayOf<TrustManager>(
-                    object : X509TrustManager {
-                        @Throws(CertificateException::class)
-                        override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                        }
+                val trustAllCerts =
+                    arrayOf<TrustManager>(
+                        object : X509TrustManager {
+                            @Throws(CertificateException::class)
+                            override fun checkClientTrusted(
+                                chain: Array<java.security.cert.X509Certificate>,
+                                authType: String,
+                            ) {
+                            }
 
-                        @Throws(CertificateException::class)
-                        override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                        }
+                            @Throws(CertificateException::class)
+                            override fun checkServerTrusted(
+                                chain: Array<java.security.cert.X509Certificate>,
+                                authType: String,
+                            ) {
+                            }
 
-                        override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> {
-                            return arrayOf()
-                        }
-                    },
-                )
+                            override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> = arrayOf()
+                        },
+                    )
 
                 // Install the all-trusting trust manager
                 val sslContext = SSLContext.getInstance("SSL")

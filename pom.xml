@@ -4,7 +4,7 @@
 
     <groupId>com.github.aoudiamoncef</groupId>
     <artifactId>apollo-client-maven-plugin-parent</artifactId>
-    <version>7.2.0-SNAPSHOT</version>
+    <version>8.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>apollo-client-maven-plugin-parent</name>
@@ -30,7 +30,7 @@
 
         <annotations.version>24.1.0</annotations.version>
         <ant.version>1.10.14</ant.version>
-        <apollo.version>3.8.4</apollo.version>
+        <apollo.version>4.0.1</apollo.version>
         <assertj-core.version>3.24.2</assertj-core.version>
         <graphql-java-servlet.version>6.1.3</graphql-java-servlet.version>
         <graphql-java-tools.version>5.2.4</graphql-java-tools.version>
@@ -49,7 +49,7 @@
         <version.dokka.plugin>0.9.17</version.dokka.plugin>
         <version.formatter.plugin>2.11.0</version.formatter.plugin>
         <version.impsort.plugin>1.4.1</version.impsort.plugin>
-        <version.ktlint.plugin>1.16.0</version.ktlint.plugin>
+        <version.ktlint.plugin>3.5.0</version.ktlint.plugin>
         <version.site.plugin>3.9.1</version.site.plugin>
         <version.antrun.plugin>3.1.0</version.antrun.plugin>
         <version.clean.plugin>3.2.0</version.clean.plugin>
@@ -130,7 +130,7 @@
                 <version>${maven-project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.apollographql.apollo3</groupId>
+                <groupId>com.apollographql.apollo</groupId>
                 <artifactId>apollo-runtime</artifactId>
                 <version>${apollo.version}</version>
             </dependency>
@@ -140,12 +140,12 @@
                 <version>${annotations.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.apollographql.apollo3</groupId>
+                <groupId>com.apollographql.apollo</groupId>
                 <artifactId>apollo-compiler</artifactId>
                 <version>${apollo.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.apollographql.apollo3</groupId>
+                <groupId>com.apollographql.apollo</groupId>
                 <artifactId>apollo-api-jvm</artifactId>
                 <version>${apollo.version}</version>
             </dependency>

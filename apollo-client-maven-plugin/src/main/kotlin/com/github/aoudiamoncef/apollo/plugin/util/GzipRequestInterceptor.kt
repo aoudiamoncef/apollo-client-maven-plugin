@@ -17,18 +17,18 @@ internal class GzipRequestInterceptor : Interceptor {
         if (originalRequest.body == null || originalRequest.header("Content-Encoding") != null) {
             return chain.proceed(originalRequest)
         }
-        val compressedRequest = originalRequest.newBuilder()
-            .header("Content-Encoding", "gzip")
-            .method(originalRequest.method, gzip(originalRequest.body))
-            .build()
+        val compressedRequest =
+            originalRequest
+                .newBuilder()
+                .header("Content-Encoding", "gzip")
+                .method(originalRequest.method, gzip(originalRequest.body))
+                .build()
         return chain.proceed(compressedRequest)
     }
 
     private fun gzip(body: RequestBody?): RequestBody {
         return object : RequestBody() {
-            override fun contentType(): MediaType? {
-                return body!!.contentType()
-            }
+            override fun contentType(): MediaType? = body!!.contentType()
 
             override fun contentLength(): Long {
                 return -1 // We don't know the compressed length in advance!
